@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h3 class="text-sm uppercase tracking-wide text-80 bg-30 p-3">{{ filter.name }}</h3>
+  <div class="pt-2 pb-3">
+    <h3 class="px-3 text-xs uppercase font-bold tracking-wide"><span>{{ filter.name }}</span></h3>
 
     <div class="p-2">
       <input
@@ -16,8 +16,9 @@
   </div>
 </template>
 <script>
-import flatpickr from 'flatpickr'
-import '../../airbnb-modified.css'
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import '../../airbnb-modified.css';
 
 export default {
   props: {
@@ -36,7 +37,7 @@ export default {
 
   computed: {
     placeholder() {
-      return this.filter.placeholder || this.__('Pick a date range')
+      return this.filter.options.find(item => item.label == 'placeholder')?.value || this.__('Pick a date range')
     },
     startDate() {
       return flatpickr.formatDate(flatpickr.parseDate(this.filter.currentValue[0], this.dateFormat), this.dateFormat)
@@ -59,36 +60,33 @@ export default {
       )
     },
     disabled() {
-      return this.filter.disabled
+      return this.filter.options.find(item => item.label == 'disabled')?.value
     },
     separator() {
-      return this.filter.separator || '-'
+      return this.filter.options.find(item => item.label == 'separator')?.value || '-'
     },
     modeType() {
-        return (this.filter.mode === 'range') ? 'range' : 'single'
+      return (this.filter.options.find(item => item.label == 'mode')?.value === 'range') ? 'range' : 'single'
     },
     dateFormat() {
-        return this.filter.dateFormat || (this.filter.enableTime ? 'Y-m-d H:i' : 'Y-m-d')
+      return this.filter.options.find(item => item.label == 'dateFormat')?.value || (this.enableTime ? 'Y-m-d H:i' : 'Y-m-d')
     },
     twelveHourTime() {
-      return this.filter.twelveHourTime
+       return this.filter.options.find(item => item.label == 'twelveHourTime')?.value
     },
     enableTime() {
-      return this.filter.enableTime
+      return this.filter.options.find(item => item.label == 'enableTime')?.value
     },
     enableSeconds() {
-      return this.filter.enableSeconds
+      return this.filter.options.find(item => item.label == 'enableSeconds')?.value
     },
     firstDayOfWeek() {
-      return this.filter.firstDayOfWeek || 0
+      return this.filter.options.find(item => item.label == 'firstDayOfWeek')?.value || 0
     }
   },
 
   mounted() {
-    const self = this
-    this.options.forEach((option) => {
-      Object.assign(this.filter, {[option.name]: option.value})
-    })
+    const self = this;
     this.$nextTick(() => {
       this.flatpickr = flatpickr(this.$refs.datePicker, {
         enableTime: this.enableTime,
