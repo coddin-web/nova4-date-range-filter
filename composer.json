@@ -1,25 +1,26 @@
 {
-    "name": "kolossal-io/nova4-date-range-filter",
+    "name": "coddin-web/nova4-date-range-filter",
     "description": "A Laravel Nova date range filter.",
     "keywords": [
         "laravel",
         "nova",
+        "nova4",
         "date",
         "filter"
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0"
+        "php": "^8.0"
     },
     "autoload": {
         "psr-4": {
-            "Ampeco\\Filters\\": "src/"
+            "Coddin\\Filters\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Ampeco\\Filters\\FieldServiceProvider"
+                "Coddin\\Filters\\FieldServiceProvider"
             ]
         }
     },
