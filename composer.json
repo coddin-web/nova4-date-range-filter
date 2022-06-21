@@ -8,6 +8,7 @@
         "date",
         "filter"
     ],
+    "version": "1.0.1",
     "license": "MIT",
     "require": {
         "php": "^8.0"
